@@ -43,6 +43,68 @@
         <h1>Olimpíada de História</h1>
         <h2 id="inscrito">Você já está inscrito</h2>
         <button id="inscrever" onclick="subscribe()">Inscrever-se</button>
+        <button id="admin" onclick="admin()">Área do Admin</button>
+    </nav>
+
+    <nav id="nav-admin" class="olimpiadas">
+        <h1>Área do Admin</h1>
+        <h2>Olimpíada Arandu de História</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Total</th>
+                    <th>N1</th>
+                    <th>N2</th>
+                    <th>N3</th>
+                    <th>N4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><b>Inscrições Individuais</b></td>
+                    <td id="total">0</td>
+                    <td id="n1">0</td>
+                    <td id="n2">0</td>
+                    <td id="n3">0</td>
+                    <td id="n4">0</td>
+                </tr>
+                <tr>
+                    <td><b>PROL Científicas</b></td>
+                    <td>166</td>
+                    <td>33</td>
+                    <td>64</td>
+                    <td>69</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><b>COLÉGIO UNIMAIS</b></td>
+                    <td>252</td>
+                    <td>41</td>
+                    <td>64</td>
+                    <td>147</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><b>Pires e Brenda Reforço Educacional</b></td>
+                    <td>24</td>
+                    <td>6</td>
+                    <td>6</td>
+                    <td>12</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td><b>Total</b></td>
+                    <td id="ttotal">0</td>
+                    <td id="tn1">0</td>
+                    <td id="tn2">0</td>
+                    <td id="tn3">0</td>
+                    <td id="tn4">0</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button type="button" onclick="comeback()">Voltar</button>
     </nav>
 
     <form id="olympiadForm">
