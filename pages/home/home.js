@@ -62,47 +62,48 @@ function admin() {
 
     var collection = firebase.firestore().collection("dados");
 
-    collection.where("inscrito-historia2024", "==", "Sim").get().then((querySnapshot) => {
-        var local = document.getElementById("total");
-        local.textContent = querySnapshot.size;
-        var local2 = document.getElementById("ttotal");
-        local2.textContent = querySnapshot.size + 442;
-    }).catch((error) => {
-        console.error("Erro ao consultar documentos:", error);
-    });
+    collection.get().then((querySnapshot) => {
+        var totalSim = 0;
+        var nivel1Count = 0;
+        var nivel2Count = 0;
+        var nivel3Count = 0;
+        var nivel4Count = 0;
 
-    collection.where("inscrito-historia2024", "==", "Sim").where("level", "==", "nível 1").get().then((querySnapshot) => {
-        var local = document.getElementById("n1");
-        local.textContent = querySnapshot.size; // Número de documentos na consulta
-        var local2 = document.getElementById("tn1");
-        local2.textContent = querySnapshot.size + 80;
-    }).catch((error) => {
-        console.error("Erro ao consultar documentos:", error);
-    });
+        querySnapshot.forEach((doc) => {
+            var data = doc.data();
+            if (data["inscrito-historia2024"] === "Sim") {
+                totalSim++;
+                switch (data["level"]) {
+                    case "nível 1":
+                        nivel1Count++;
+                        break;
+                    case "nível 2":
+                        nivel2Count++;
+                        break;
+                    case "nível 3":
+                        nivel3Count++;
+                        break;
+                    case "nível 4":
+                        nivel4Count++;
+                        break;
+                }
+            }
+        });
 
-    collection.where("inscrito-historia2024", "==", "Sim").where("level", "==", "nível 2").get().then((querySnapshot) => {
-        var local = document.getElementById("n2");
-        local.textContent = querySnapshot.size;
-        var local2 = document.getElementById("tn2");
-        local2.textContent = querySnapshot.size + 134;
-    }).catch((error) => {
-        console.error("Erro ao consultar documentos:", error);
-    });
+        document.getElementById("total").textContent = totalSim;
+        document.getElementById("ttotal").textContent = totalSim + 442;
 
-    collection.where("inscrito-historia2024", "==", "Sim").where("level", "==", "nível 3").get().then((querySnapshot) => {
-        var local = document.getElementById("n3");
-        local.textContent = querySnapshot.size;
-        var local2 = document.getElementById("tn3");
-        local2.textContent = querySnapshot.size + 228;
-    }).catch((error) => {
-        console.error("Erro ao consultar documentos:", error);
-    });
+        document.getElementById("n1").textContent = nivel1Count;
+        document.getElementById("tn1").textContent = nivel1Count + 80;
 
-    collection.where("inscrito-historia2024", "==", "Sim").where("level", "==", "nível 4").get().then((querySnapshot) => {
-        var local = document.getElementById("n4");
-        local.textContent = querySnapshot.size;
-        var local2 = document.getElementById("tn4");
-        local2.textContent = querySnapshot.size;
+        document.getElementById("n2").textContent = nivel2Count;
+        document.getElementById("tn2").textContent = nivel2Count + 134;
+
+        document.getElementById("n3").textContent = nivel3Count;
+        document.getElementById("tn3").textContent = nivel3Count + 228;
+
+        document.getElementById("n4").textContent = nivel4Count;
+        document.getElementById("tn4").textContent = nivel4Count;
     }).catch((error) => {
         console.error("Erro ao consultar documentos:", error);
     });
