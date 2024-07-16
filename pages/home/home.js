@@ -91,10 +91,10 @@ function admin() {
         });
 
         document.getElementById("total").textContent = totalSim;
-        document.getElementById("ttotal").textContent = totalSim + 442;
+        document.getElementById("ttotal").textContent = totalSim + 443;
 
         document.getElementById("n1").textContent = nivel1Count;
-        document.getElementById("tn1").textContent = nivel1Count + 80;
+        document.getElementById("tn1").textContent = nivel1Count + 81;
 
         document.getElementById("n2").textContent = nivel2Count;
         document.getElementById("tn2").textContent = nivel2Count + 134;
