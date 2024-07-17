@@ -19,6 +19,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                             button1.style.display = "block";
                             button2.style.display = "none";
+                        } else if (inscritoValor == "prof") {
+                            var button1 = document.getElementById("prof");
+                            var button2 = document.getElementById("inscrever");
+
+                            button1.style.display = "block";
+                            button2.style.display = "none";
                         } else {
                             console.log('O campo "inscrito-historia2024" não é igual a "Sim" ou "admin"');
                         }
@@ -51,6 +57,14 @@ function subscribe() {
 
     div.style.display = "none";
     form.style.display = "block";
+}
+
+function prof() {
+    var div1 = document.getElementById("olimpiadas");
+    var div2 = document.getElementById("nav-prof");
+
+    div1.style.display = "none";
+    div2.style.display = "block";
 }
 
 function admin() {
