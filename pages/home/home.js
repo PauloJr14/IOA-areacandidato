@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     if (doc.data().hasOwnProperty("inscrito-historia2024")) {
                         var inscritoValor = doc.data()["inscrito-historia2024"];
                         if (inscritoValor == "Sim") {
-                            var h2 = document.getElementById("inscrito");
-                            var button = document.getElementById("inscrever");
+                            var button1 = document.getElementById("aluno");
+                            var button2 = document.getElementById("inscrever");
 
-                            h2.style.display = "block";
-                            button.style.display = "none";
+                            button1.style.display = "block";
+                            button2.style.display = "none";
                         } else if (inscritoValor == "admin") {
                             var button1 = document.getElementById("admin");
                             var button2 = document.getElementById("inscrever");
@@ -62,6 +62,14 @@ function subscribe() {
 function prof() {
     var div1 = document.getElementById("olimpiadas");
     var div2 = document.getElementById("nav-prof");
+
+    div1.style.display = "none";
+    div2.style.display = "block";
+}
+
+function aluno() {
+    var div1 = document.getElementById("olimpiadas");
+    var div2 = document.getElementById("nav-aluno");
 
     div1.style.display = "none";
     div2.style.display = "block";
@@ -167,3 +175,43 @@ function subcomplited() {
         alert("Nenhum usuário está conectado");
     }
 }
+
+document.getElementById("copyEmailsButton").addEventListener("click", async () => {
+    try {
+        // Referência à coleção de dados
+        const collection = firebase.firestore().collection('dados');
+
+        // Consulta para documentos onde "inscrito-historia2024" é igual a "Sim"
+        const querySnapshot = await collection.where('inscrito-historia2024', '==', 'Sim').get();
+
+        // Lista para armazenar os e-mails
+        const emails = [];
+
+        // Itera pelos documentos retornados pela consulta
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            if (data.email) {
+                emails.push(data.email);
+            }
+        });
+
+        // Converte a lista de e-mails em uma string separada por vírgulas
+        const emailString = emails.join(', ');
+
+        if (emailString) {
+            // Cria um elemento de textarea para copiar o texto
+            const textarea = document.createElement('textarea');
+            textarea.value = emailString;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            alert("E-mails copiados para a área de transferência!");
+        } else {
+            alert("Nenhum e-mail encontrado.");
+        }
+    } catch (error) {
+        console.error("Erro ao recuperar e copiar os e-mails:", error);
+    }
+});

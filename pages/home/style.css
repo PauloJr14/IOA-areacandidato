@@ -278,14 +278,14 @@ button {
 .olimpiadas {
     margin: 30px;
     margin-top: 50px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: #f5f5f5;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 100px;
 }
 
 .olimpiadas h1 {
@@ -414,4 +414,12 @@ td {
     display: inline-block;
     margin-right: 10px;
     font-size: 20px;
+}
+
+#nav-aluno{
+    display: none;
+}
+
+#aluno{
+    display: none;
 }
