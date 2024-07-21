@@ -42,8 +42,8 @@
     <nav id="olimpiadas" class="olimpiadas">
         <h1>Olimpíada de História</h1>
         <br>
-        <button id="inscrever" onclick="subscribe()">Inscrever-se</button>
-        <button id="aluno" onclick="aluno()">Área do Aluno</button>
+        <h2 id="inscrever">Inscrições Encerradas</h2>
+        <button id="aluno" onclick="navaluno()">Área do Aluno</button>
         <button id="admin" onclick="admin()">Área do Admin</button>
         <button id="prof" onclick="prof()">Área do Professor</button>
     </nav>
@@ -52,9 +52,218 @@
         <h1>Olimpíada de História</h1>
         <h2>Você já está inscrito</h2>
         <p>A prova estará disponível entre os dias 21 e 27 de Julho</p>
+        <br>
+        <nav style="display: flex; justify-content: space-around;">
+            <button id="prova1" onclick="prova1()">Acessar Prova - Nível 1</button>
+            <button id="prova2" onclick="prova2()">Acessar Prova - Nível 2</button>
+            <button id="prova3" onclick="prova3()">Acessar Prova - Nível 3</button>
+            <button id="prova4" onclick="prova4()">Acessar Prova - Nível 4</button>
+            <button onclick="gabarito()">Preencher Gabarito</button>
         </nav>
+        <button type="button" onclick="comeback()">Voltar</button>
     </nav>
 
+    <nav id="gabarito" class="olimpiadas">
+        <h1>Gabarito - Olimpíada de História</h1>
+        <form id="answer-sheet">
+            <h2>Questões Objetivas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Questão</th>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>C</th>
+                        <th>D</th>
+                        <th>E</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1.</td>
+                        <td><input type="radio" name="q1" value="a"></td>
+                        <td><input type="radio" name="q1" value="b"></td>
+                        <td><input type="radio" name="q1" value="c"></td>
+                        <td><input type="radio" name="q1" value="d"></td>
+                        <td><input type="radio" name="q1" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td><input type="radio" name="q2" value="a"></td>
+                        <td><input type="radio" name="q2" value="b"></td>
+                        <td><input type="radio" name="q2" value="c"></td>
+                        <td><input type="radio" name="q2" value="d"></td>
+                        <td><input type="radio" name="q2" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td><input type="radio" name="q3" value="a"></td>
+                        <td><input type="radio" name="q3" value="b"></td>
+                        <td><input type="radio" name="q3" value="c"></td>
+                        <td><input type="radio" name="q3" value="d"></td>
+                        <td><input type="radio" name="q3" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td><input type="radio" name="q4" value="a"></td>
+                        <td><input type="radio" name="q4" value="b"></td>
+                        <td><input type="radio" name="q4" value="c"></td>
+                        <td><input type="radio" name="q4" value="d"></td>
+                        <td><input type="radio" name="q4" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td><input type="radio" name="q5" value="a"></td>
+                        <td><input type="radio" name="q5" value="b"></td>
+                        <td><input type="radio" name="q5" value="c"></td>
+                        <td><input type="radio" name="q5" value="d"></td>
+                        <td><input type="radio" name="q5" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td><input type="radio" name="q6" value="a"></td>
+                        <td><input type="radio" name="q6" value="b"></td>
+                        <td><input type="radio" name="q6" value="c"></td>
+                        <td><input type="radio" name="q6" value="d"></td>
+                        <td><input type="radio" name="q6" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td><input type="radio" name="q7" value="a"></td>
+                        <td><input type="radio" name="q7" value="b"></td>
+                        <td><input type="radio" name="q7" value="c"></td>
+                        <td><input type="radio" name="q7" value="d"></td>
+                        <td><input type="radio" name="q7" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td><input type="radio" name="q8" value="a"></td>
+                        <td><input type="radio" name="q8" value="b"></td>
+                        <td><input type="radio" name="q8" value="c"></td>
+                        <td><input type="radio" name="q8" value="d"></td>
+                        <td><input type="radio" name="q8" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td><input type="radio" name="q9" value="a"></td>
+                        <td><input type="radio" name="q9" value="b"></td>
+                        <td><input type="radio" name="q9" value="c"></td>
+                        <td><input type="radio" name="q9" value="d"></td>
+                        <td><input type="radio" name="q9" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>10.</td>
+                        <td><input type="radio" name="q10" value="a"></td>
+                        <td><input type="radio" name="q10" value="b"></td>
+                        <td><input type="radio" name="q10" value="c"></td>
+                        <td><input type="radio" name="q10" value="d"></td>
+                        <td><input type="radio" name="q10" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>11.</td>
+                        <td><input type="radio" name="q11" value="a"></td>
+                        <td><input type="radio" name="q11" value="b"></td>
+                        <td><input type="radio" name="q11" value="c"></td>
+                        <td><input type="radio" name="q11" value="d"></td>
+                        <td><input type="radio" name="q11" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>12.</td>
+                        <td><input type="radio" name="q12" value="a"></td>
+                        <td><input type="radio" name="q12" value="b"></td>
+                        <td><input type="radio" name="q12" value="c"></td>
+                        <td><input type="radio" name="q12" value="d"></td>
+                        <td><input type="radio" name="q12" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>13.</td>
+                        <td><input type="radio" name="q13" value="a"></td>
+                        <td><input type="radio" name="q13" value="b"></td>
+                        <td><input type="radio" name="q13" value="c"></td>
+                        <td><input type="radio" name="q13" value="d"></td>
+                        <td><input type="radio" name="q13" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>14.</td>
+                        <td><input type="radio" name="q14" value="a"></td>
+                        <td><input type="radio" name="q14" value="b"></td>
+                        <td><input type="radio" name="q14" value="c"></td>
+                        <td><input type="radio" name="q14" value="d"></td>
+                        <td><input type="radio" name="q14" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>15.</td>
+                        <td><input type="radio" name="q15" value="a"></td>
+                        <td><input type="radio" name="q15" value="b"></td>
+                        <td><input type="radio" name="q15" value="c"></td>
+                        <td><input type="radio" name="q15" value="d"></td>
+                        <td><input type="radio" name="q15" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>16.</td>
+                        <td><input type="radio" name="q16" value="a"></td>
+                        <td><input type="radio" name="q16" value="b"></td>
+                        <td><input type="radio" name="q16" value="c"></td>
+                        <td><input type="radio" name="q16" value="d"></td>
+                        <td><input type="radio" name="q16" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>17.</td>
+                        <td><input type="radio" name="q17" value="a"></td>
+                        <td><input type="radio" name="q17" value="b"></td>
+                        <td><input type="radio" name="q17" value="c"></td>
+                        <td><input type="radio" name="q17" value="d"></td>
+                        <td><input type="radio" name="q17" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>18.</td>
+                        <td><input type="radio" name="q18" value="a"></td>
+                        <td><input type="radio" name="q18" value="b"></td>
+                        <td><input type="radio" name="q18" value="c"></td>
+                        <td><input type="radio" name="q18" value="d"></td>
+                        <td><input type="radio" name="q18" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>19.</td>
+                        <td><input type="radio" name="q19" value="a"></td>
+                        <td><input type="radio" name="q19" value="b"></td>
+                        <td><input type="radio" name="q19" value="c"></td>
+                        <td><input type="radio" name="q19" value="d"></td>
+                        <td><input type="radio" name="q19" value="e"></td>
+                    </tr>
+                    <tr>
+                        <td>20.</td>
+                        <td><input type="radio" name="q20" value="a"></td>
+                        <td><input type="radio" name="q20" value="b"></td>
+                        <td><input type="radio" name="q20" value="c"></td>
+                        <td><input type="radio" name="q20" value="d"></td>
+                        <td><input type="radio" name="q20" value="e"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h2>Questões Dissertativas</h2>
+            <p>As questões dissertativas devem ter entre 0 e 300 palavras</p>
+            <label for="essay1">Questão 21:</label>
+            <textarea id="essay1" name="essay1" rows="4" cols="45"></textarea><br><br>
+            <label for="essay2">Questão 22:</label>
+            <textarea id="essay2" name="essay2" rows="4" cols="45"></textarea><br><br>
+            <label for="essay3">Questão 23:</label>
+            <textarea id="essay3" name="essay3" rows="4" cols="45"></textarea><br><br>
+            <label for="essay4">Questão 24:</label>
+            <textarea id="essay4" name="essay4" rows="4" cols="45"></textarea><br><br>
+            <label for="essay5">Questão 25:</label>
+            <textarea id="essay5" name="essay5" rows="4" cols="45"></textarea><br><br>
+            <p>Se você ainda vai terminar de preencher ou ainda vai analisar as respostas, aperte em "Salvar Rascunho", mas se você já quiser entregar de forma definitiva, sem poder fazer alterações depois, aperte em "Entregar gabarito"</p>
+            <br>
+            <nav style="display: flex; justify-content: space-around;">
+                <button type="button" onclick="rascunho()">Salvar rascunho</button>
+                <button type="button" onclick="entregar()">Entregar gabarito</button>
+                <button type="button" onclick="comeback2()">Voltar</button>
+            </nav>
+        </form>
+    </nav>
+    
     <nav id="nav-admin" class="olimpiadas">
         <h1>Área do Admin</h1>
         <h2>Olimpíada Arandu de História</h2>
@@ -72,11 +281,11 @@
             <tbody>
                 <tr>
                     <td><b>Inscrições Individuais</b></td>
-                    <td id="total">0</td>
-                    <td id="n1">0</td>
-                    <td id="n2">0</td>
-                    <td id="n3">0</td>
-                    <td id="n4">0</td>
+                    <td id="total">775</td>
+                    <td id="n1">92</td>
+                    <td id="n2">159</td>
+                    <td id="n3">474</td>
+                    <td id="n4">44</td>
                 </tr>
                 <tr>
                     <td><b>PROL Científicas</b></td>
@@ -104,11 +313,11 @@
                 </tr>
                 <tr>
                     <td><b>Total</b></td>
-                    <td id="ttotal">0</td>
-                    <td id="tn1">0</td>
-                    <td id="tn2">0</td>
-                    <td id="tn3">0</td>
-                    <td id="tn4">0</td>
+                    <td id="ttotal">1217</td>
+                    <td id="tn1">172</td>
+                    <td id="tn2">293</td>
+                    <td id="tn3">702</td>
+                    <td id="tn4">44</td>
                 </tr>
             </tbody>
         </table>
@@ -135,20 +344,29 @@
                     <td><a href="https://drive.google.com/file/d/1a5xfOVOGsR3ugr0vU8kFc_e3n8DbIxpJ/view?usp=sharing">Clique aqui para acessar as Instruções</a></td>
                 </tr>
                 <tr>
-                    <td>Provas com Gabarito</td>
-                    <td>(Serão disponibilizadas no dia 21/07)</td>
+                    <td>Provas do Nível 1</td>
+                    <td><a href="https://drive.google.com/file/d/1bk75pURSJXuqaZvl-lw80Oe5RGgBq5be/view?usp=sharing">Clique aqui para acessar a Prova do Nível 1</a></td>
                 </tr>
                 <tr>
-                    <td>Provas sem Gabarito</td>
-                    <td>(Serão disponibilizadas no dia 21/07)</td>
+                    <td>Provas do Nível 2</td>
+                    <td><a href="https://drive.google.com/file/d/1tQPN_Z9fYldZnwPywUA1yFnWmkO9aNBb/view?usp=sharing">Clique aqui para acessar a Prova do Nível 2</a></td>
                 </tr>
                 <tr>
-                    <td>Gabarito a parte</td>
-                    <td>(Será disponibilizado no dia 21/07)</td>
+                    <td>Provas do Nível 3</td>
+                    <td><a href="https://drive.google.com/file/d/1hvzYPAT6ObqLdwDK0lhWmyIBhcrVnimB/view?usp=sharing">Clique aqui para acessar a Prova do Nível 3</a></td>
+                </tr>
+                <tr>
+                    <td>Provas do Nível 4</td>
+                    <td><a href="https://drive.google.com/file/d/1ayZAtpw9nnkap82BXkGLAZMF_-x9rsRL/view?usp=sharing">Clique aqui para acessar a Prova do Nível 4</a></td>
                 </tr>
                 <tr>
                     <td>Resposta dos Alunos</td>
-                    <td>(Será disponibilizado no dia 21/07)</td>
+                    <td>
+                        Selecione abaixo o arquivo com o gabarito dos alunos e envie. Coloque todos os PDFs em um úncio arquivo.
+                        <input type="file" id="file-input" />
+                        <p id="porcentagem"></p>
+                        <button type="button" onclick="uploadFile()">Enviar Arquivo</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -161,6 +379,7 @@
             <li id="whatsapp"><a href="https://chat.whatsapp.com/F0Hbc7KTUfgAy4hFXatvrP">Grupo no Whatsapp (Olimpíada - Restrito aos Professores)</a></li>
             <li id="email"><a href="mailto:institutoolimpicoarandu@gmail.com">E-mail para Contato</a></li>
         </ul>
+        <button type="button" onclick="comeback()">Voltar</button>
     </nav>
 
     <form id="olympiadForm">
@@ -221,6 +440,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
     <script src="../../firebase-init.js"></script>
     <script src="../../auth-guard.js"></script>
     <script src="home.js"></script>

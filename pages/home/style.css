@@ -423,3 +423,53 @@ td {
 #aluno{
     display: none;
 }
+
+#prova1 {
+    display: none;
+}
+
+#prova2 {
+    display: none;
+}
+
+#prova3 {
+    display: none;
+}
+
+#prova4 {
+    display: none;
+}
+
+#gabarito {
+    display: none;
+}
+
+#answer-sheet {
+    display: block;
+    margin-left: 0px;
+    padding-left: 30px;
+    max-width: 350px;
+}
+
+.question {
+    display: flex;
+}
+
+textarea {
+    max-width: 350px;
+}     
+
+@media screen and (max-width:450px){
+    #answer-sheet {
+        max-width: 350px;
+    }
+
+    textarea {
+        max-width: 250px;
+    }     
+}
+@media screen and (min-width:450px) and (max-width:600px){
+    textarea {
+        max-width: 300px;
+    }     
+}
