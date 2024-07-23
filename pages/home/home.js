@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
                             button1.style.display = "block";
                             button2.style.display = "none";
+                        } else if (inscritoValor == "Não") {
+                            subscribe()
                         } else if (inscritoValor == "admin") {
                             var button1 = document.getElementById("admin");
                             var button2 = document.getElementById("inscrever");
@@ -451,4 +453,74 @@ function uploadFile() {
     } else {
         alert('Por favor, selecione um arquivo.');
     }
+}
+
+function inscritos() {
+    var collection = firebase.firestore().collection("dados");
+
+    collection.get().then((querySnapshot) => {
+        var totalSim = 0;
+        var nivel1Count = 0;
+        var nivel2Count = 0;
+        var nivel3Count = 0;
+        var nivel4Count = 0;
+
+        querySnapshot.forEach((doc) => {
+            var data = doc.data();
+            if (data["inscrito-historia2024"] === "Sim") {
+                totalSim++;
+                switch (data["level"]) {
+                    case "nível 1":
+                        nivel1Count++;
+                        break;
+                    case "nível 2":
+                        nivel2Count++;
+                        break;
+                    case "nível 3":
+                        nivel3Count++;
+                        break;
+                    case "nível 4":
+                        nivel4Count++;
+                        break;
+                }
+            }
+        });
+
+        document.getElementById("total").textContent = totalSim;
+        document.getElementById("ttotal").textContent = totalSim + 444;
+
+        document.getElementById("n1").textContent = nivel1Count;
+        document.getElementById("tn1").textContent = nivel1Count + 80;
+
+        document.getElementById("n2").textContent = nivel2Count;
+        document.getElementById("tn2").textContent = nivel2Count + 134;
+
+        document.getElementById("n3").textContent = nivel3Count;
+        document.getElementById("tn3").textContent = nivel3Count + 230;
+
+        document.getElementById("n4").textContent = nivel4Count;
+        document.getElementById("tn4").textContent = nivel4Count;
+    }).catch((error) => {
+        console.error("Erro ao consultar documentos:", error);
+    });
+}
+
+function entregues() {
+    var collection = firebase.firestore().collection("respostas-historia2024");
+
+    collection.get().then((querySnapshot) => {
+        var totalEntregues = 0;
+
+        querySnapshot.forEach((doc) => {
+            var data = doc.data();
+            if (data["state"] === true) {
+                totalEntregues++;
+            }
+        });
+
+        document.getElementById("entregues").textContent = "Inscritos que já entregaram: " + totalEntregues;
+
+    }).catch((error) => {
+        console.error("Erro ao consultar documentos:", error);
+    });
 }
