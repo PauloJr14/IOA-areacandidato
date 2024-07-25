@@ -518,7 +518,7 @@ function entregues() {
             }
         });
 
-        document.getElementById("entregues").textContent = "Inscritos que já entregaram: " + totalEntregues;
+        document.getElementById("entregues").textContent = "Inscritos individuais que já entregaram: " + totalEntregues + " (" + ((totalEntregues * 100)/776).toFixed(2) + "%)";
 
     }).catch((error) => {
         console.error("Erro ao consultar documentos:", error);
