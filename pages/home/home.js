@@ -510,15 +510,19 @@ function entregues() {
 
     collection.get().then((querySnapshot) => {
         var totalEntregues = 0;
+	var totalRascunhos = 0;
 
         querySnapshot.forEach((doc) => {
             var data = doc.data();
             if (data["state"] === true) {
                 totalEntregues++;
-            }
+            } 
+	    if (data.hasOwnProperty("respostas")) {
+		totalRascunhos++;
+	    }
         });
 
-        document.getElementById("entregues").textContent = "Inscritos individuais que já entregaram: " + totalEntregues + " (" + ((totalEntregues * 100)/776).toFixed(2) + "%)";
+        document.getElementById("entregues").textContent = "Inscritos individuais que já entregaram: " + totalEntregues + " (" + ((totalEntregues * 100)/776).toFixed(2) + "%)" + "// Inscritos individuais que salvaram em rascunho: " + (totalRascunhos - totalEntregues) + " (" + (((totalRascunhos - totalEntregues) * 100)/776).toFixed(2) + "%)" + "// Inscritos individuais que nem salvaram como rascunho: " + (776 - totalRascunhos) + " (" + (((776 - totalRascunhos) * 100)/776).toFixed(2) + "%)";
 
     }).catch((error) => {
         console.error("Erro ao consultar documentos:", error);
