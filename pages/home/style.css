@@ -473,3 +473,19 @@ textarea {
         max-width: 300px;
     }     
 }
+
+#nav-corretor {
+    display: none;
+}
+
+#corrigir {
+    display: none;
+}
+
+#corrigindo {
+    display: none;
+}
+
+#corrigido {
+    display: none;
+}

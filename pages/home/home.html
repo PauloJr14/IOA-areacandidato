@@ -51,14 +51,14 @@
     <nav id="nav-aluno" class="olimpiadas">
         <h1>Olimpíada de História</h1>
         <h2>Você já está inscrito</h2>
-        <p>A prova estará disponível entre os dias 21 e 28 de Julho</p>
+        <p>O período para responder a prova já acabou</p>
         <br>
         <nav style="display: flex; justify-content: space-around;">
             <button id="prova1" onclick="prova1()">Acessar Prova - Nível 1</button>
             <button id="prova2" onclick="prova2()">Acessar Prova - Nível 2</button>
             <button id="prova3" onclick="prova3()">Acessar Prova - Nível 3</button>
             <button id="prova4" onclick="prova4()">Acessar Prova - Nível 4</button>
-            <button onclick="gabarito()">Preencher Gabarito</button>
+            <button onclick="gabarito()">Visualizar Gabarito Preenchido</button>
         </nav>
         <button type="button" onclick="comeback()">Voltar</button>
     </nav>
@@ -256,9 +256,7 @@
             <textarea id="essay5" name="essay5" rows="4" cols="45"></textarea><br><br>
             <p>Se você ainda vai terminar de preencher ou ainda vai analisar as respostas, aperte em "Salvar Rascunho", mas se você já quiser entregar de forma definitiva, sem poder fazer alterações depois, aperte em "Entregar gabarito"</p>
             <br>
-            <nav style="display: flex; justify-content: space-around;">
-                <button type="button" onclick="comeback2()">Voltar</button>
-            </nav>
+            <button type="button" onclick="comeback2()">Voltar</button>
         </form>
     </nav>
     
@@ -320,17 +318,68 @@
             </tbody>
         </table>
         <br>
-        <h2>Botões de Paulo</h2>
         <nav style="display: flex; justify-content: space-around;">
-            <button id="copyEmailsButton">Copiar E-mails</button>
             <button id="entregues" onclick="entregues()">Inscritos que já entregaram</button>
+            <button onclick="correcao()">Área dos Corretores</button>
         </nav>
         <br>
         <button type="button" onclick="comeback()">Voltar</button>
     </nav>
 
+    
+    <nav id="nav-corretor" class="olimpiadas">
+        <h1>Área dos Corretores</h1>
+        <h2>Olimpíada Arandu de História</h2>
+        <nav style="display: flex; justify-content: space-around;">
+            <button onclick="corrigir()">Corrigir</button>
+            <button onclick="corrigindo()">Corrigindo</button>
+            <button onclick="corrigido()">Corrigido</button>
+        </nav>
+        <table id="corrigir">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Nota Obj.</th>
+                    <th>Corrigir</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <table id="corrigindo">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Nota Obj.</th>
+                    <th>Continuar</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        <table id="corrigido">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Nota Obj.</th>
+                    <th>Nota Dis.</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <br>
+        <button onclick="comeback3()">Voltar</button>
+    </nav>
+
     <nav id="nav-prof" class="olimpiadas">
         <h1>Área do Professor</h1>
+        <p>As respostas dos alunos devem ser enviadas até o dia 3 de Agosto</p>
         <br>
         <table>
             <thead>

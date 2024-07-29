@@ -188,6 +188,22 @@ function comeback2() {
     div2.style.display = "none";
 }
 
+function correcao() {
+    var div1 = document.getElementById("nav-admin");
+    var div2 = document.getElementById("nav-corretor");
+
+    div1.style.display = "none";
+    div2.style.display = "block";
+}
+
+function comeback3() {
+    var div1 = document.getElementById("nav-admin");
+    var div2 = document.getElementById("nav-corretor");
+
+    div1.style.display = "block";
+    div2.style.display = "none";
+}
+
 function subcomplited() {
     var user = firebase.auth().currentUser;
 	if (user) {
@@ -455,76 +471,52 @@ function uploadFile() {
     }
 }
 
-function inscritos() {
-    var collection = firebase.firestore().collection("dados");
-
-    collection.get().then((querySnapshot) => {
-        var totalSim = 0;
-        var nivel1Count = 0;
-        var nivel2Count = 0;
-        var nivel3Count = 0;
-        var nivel4Count = 0;
-
-        querySnapshot.forEach((doc) => {
-            var data = doc.data();
-            if (data["inscrito-historia2024"] === "Sim") {
-                totalSim++;
-                switch (data["level"]) {
-                    case "nível 1":
-                        nivel1Count++;
-                        break;
-                    case "nível 2":
-                        nivel2Count++;
-                        break;
-                    case "nível 3":
-                        nivel3Count++;
-                        break;
-                    case "nível 4":
-                        nivel4Count++;
-                        break;
-                }
-            }
-        });
-
-        document.getElementById("total").textContent = totalSim;
-        document.getElementById("ttotal").textContent = totalSim + 444;
-
-        document.getElementById("n1").textContent = nivel1Count;
-        document.getElementById("tn1").textContent = nivel1Count + 80;
-
-        document.getElementById("n2").textContent = nivel2Count;
-        document.getElementById("tn2").textContent = nivel2Count + 134;
-
-        document.getElementById("n3").textContent = nivel3Count;
-        document.getElementById("tn3").textContent = nivel3Count + 230;
-
-        document.getElementById("n4").textContent = nivel4Count;
-        document.getElementById("tn4").textContent = nivel4Count;
-    }).catch((error) => {
-        console.error("Erro ao consultar documentos:", error);
-    });
-}
-
 function entregues() {
     var collection = firebase.firestore().collection("respostas-historia2024");
 
     collection.get().then((querySnapshot) => {
         var totalEntregues = 0;
-	var totalRascunhos = 0;
 
         querySnapshot.forEach((doc) => {
             var data = doc.data();
             if (data["state"] === true) {
                 totalEntregues++;
-            } 
-	    if (data.hasOwnProperty("respostas")) {
-		totalRascunhos++;
-	    }
+            }
         });
 
-        document.getElementById("entregues").textContent = "Inscritos individuais que já entregaram: " + totalEntregues + " (" + ((totalEntregues * 100)/776).toFixed(2) + "%)" + "// Inscritos individuais que salvaram em rascunho: " + (totalRascunhos - totalEntregues) + " (" + (((totalRascunhos - totalEntregues) * 100)/776).toFixed(2) + "%)" + "// Inscritos individuais que nem salvaram como rascunho: " + (776 - totalRascunhos) + " (" + (((776 - totalRascunhos) * 100)/776).toFixed(2) + "%)";
+        document.getElementById("entregues").textContent = "Inscritos individuais que já entregaram: " + totalEntregues + " (" + ((totalEntregues * 100)/776).toFixed(2) + "%)";
 
     }).catch((error) => {
         console.error("Erro ao consultar documentos:", error);
     });
+}
+
+function corrigir() {
+    var table1 = document.getElementById("corrigir");
+    var table2 = document.getElementById("corrigindo");
+    var table3 = document.getElementById("corrigido");
+
+    table1.style.display = "block";
+    table2.style.display = "none";
+    table3.style.display = "none";
+}
+
+function corrigindo() {
+    var table1 = document.getElementById("corrigir");
+    var table2 = document.getElementById("corrigindo");
+    var table3 = document.getElementById("corrigido");
+
+    table1.style.display = "none";
+    table2.style.display = "block";
+    table3.style.display = "none";
+}
+
+function corrigido() {
+    var table1 = document.getElementById("corrigir");
+    var table2 = document.getElementById("corrigindo");
+    var table3 = document.getElementById("corrigido");
+
+    table1.style.display = "none";
+    table2.style.display = "none";
+    table3.style.display = "block";
 }
