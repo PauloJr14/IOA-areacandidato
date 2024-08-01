@@ -493,40 +493,44 @@ function entregues() {
     });
 }
 
-function seracorrigido(number) {
-    var collection1 = firebase.firestore().collection("respostas-historia2024");
-    var collection2 = firebase.firestore().collection("dados");
+var numero = 0
 
-    collection1.get().then((querySnapshot) => {
-        if (number < 479) {
-            if (!querySnapshot.docs[number].data().respostas.hasOwnProperty("notadiscursiva")) {
-                var name = ""
-                var nivel = ""
+async function seracorrigido(number) {
+    try {
+        var collection1 = firebase.firestore().collection("respostas-historia2024");
+        var collection2 = firebase.firestore().collection("dados");
 
-                collection2.get().then((querySnapshot2) => {
-                    name = querySnapshot2.docs[number].data().fullName
-                    nivel = querySnapshot2.docs[number].data().level
-                    document.getElementById("caluno").value = name          
-                    document.getElementById("cnivel").value = nivel         
-                }).catch((error) => {
-                    console.error("Erro ao recuperar dados:", error);
-                });
+        // Obter os documentos
+        var querySnapshot1 = await collection1.get();
+        var querySnapshot2 = await collection2.get();
 
-                var respostas = querySnapshot.docs[number].data().respostas
-                document.getElementById("cnotaobjetiva").value = calcularNotaObjetiva(respostas.objetivas, nivel)
-                document.getElementById("cq21").value = respostas.discursivas.essay1
-                document.getElementById("cq22").value = respostas.discursivas.essay2
-                document.getElementById("cq23").value = respostas.discursivas.essay3
-                document.getElementById("cq24").value = respostas.discursivas.essay4
-                document.getElementById("cq25").value = respostas.discursivas.essay5
+        if (number < querySnapshot1.size) {
+            var doc1 = querySnapshot1.docs[number];
+            var doc2 = querySnapshot2.docs[number];
+
+            if (!doc1.data().respostas.hasOwnProperty("notadiscursiva")) {
+                var name = doc2.data().fullName;
+                var nivel = doc2.data().level;
+
+                document.getElementById("caluno").textContent = name;
+                document.getElementById("cnivel").textContent = nivel;
+
+                var respostas = doc1.data().respostas;
+                document.getElementById("cnotaobjetiva").textContent = calcularNotaObjetiva(respostas.objetivas, nivel);
+                document.getElementById("cq21").textContent = respostas.dissertativas.essay1;
+                document.getElementById("cq22").textContent = respostas.dissertativas.essay2;
+                document.getElementById("cq23").textContent = respostas.dissertativas.essay3;
+                document.getElementById("cq24").textContent = respostas.dissertativas.essay4;
+                document.getElementById("cq25").textContent = respostas.dissertativas.essay5;
+
+                numero = number
             } else {
-                number++
-                seracorrigido(number)
+                seracorrigido(number + 1);
             }
         }
-    }).catch((error) => {
+    } catch (error) {
         console.error("Erro ao recuperar dados:", error);
-    });
+    }
 }
 
 function calcularNotaObjetiva(respostasObjetivas, nivel) {
@@ -588,4 +592,30 @@ function obterGabarito(nivel) {
     };
 
     return gabaritos[nivel] || {};
+}
+
+function salvarcorrecao() {
+    var collection1 = firebase.firestore().collection("respostas-historia2024");
+
+    collection1.get().then((querySnapshot) => {
+        var docRef = querySnapshot.docs[numero].ref;
+
+        var notaObjetiva = parseFloat(document.getElementById("cnotaobjetiva").textContent)
+        var notaDiscursiva = parseFloat(document.getElementById("notadiscursiva").value)
+
+        docRef.update({
+            "respostas.notaobjetiva": notaObjetiva,
+            "respostas.notadiscursiva": notaDiscursiva
+        })
+        .then(() => {
+            console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+            console.error("Error updating document: ", error);
+        });
+    }).catch((error) => {
+        console.error("Erro ao recuperar dados:", error);
+    });
+
+    seracorrigido(numero + 1)
 }

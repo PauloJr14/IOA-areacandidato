@@ -358,7 +358,10 @@
         <h2>Questão 25</h2>
         <p id="cq25"></p>
         <br>
-        <button onclick="salvarcorrecao()">Voltar</button>
+        <h2>Nota discursiva</h2>
+        <input type="text" id="notadiscursiva">
+        <br><br>
+        <button onclick="salvarcorrecao()">Salvar</button>
         <button onclick="comeback3()">Voltar</button>
     </nav>
 
@@ -472,6 +475,27 @@
         </div>
     </form>
     
+    <script>
+        document.getElementById('notadiscursiva').addEventListener('input', function (event) {
+            let value = event.target.value;
+            // Remove caracteres inválidos
+            let newValue = value.replace(/[^0-9.]/g, '');
+            // Permite apenas um ponto decimal
+            let pointCount = (newValue.match(/\./g) || []).length;
+            if (pointCount > 1) {
+                newValue = newValue.slice(0, newValue.lastIndexOf('.'));
+            }
+            event.target.value = newValue;
+        });
+
+        document.getElementById('numericInput').addEventListener('keypress', function (event) {
+            let char = String.fromCharCode(event.which);
+            if (!/[0-9.]/.test(char)) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
