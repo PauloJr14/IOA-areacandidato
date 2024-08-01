@@ -194,6 +194,8 @@ function correcao() {
 
     div1.style.display = "none";
     div2.style.display = "block";
+
+    seracorrigido(0)
 }
 
 function comeback3() {
@@ -491,32 +493,99 @@ function entregues() {
     });
 }
 
-function corrigir() {
-    var table1 = document.getElementById("corrigir");
-    var table2 = document.getElementById("corrigindo");
-    var table3 = document.getElementById("corrigido");
+function seracorrigido(number) {
+    var collection1 = firebase.firestore().collection("respostas-historia2024");
+    var collection2 = firebase.firestore().collection("dados");
 
-    table1.style.display = "block";
-    table2.style.display = "none";
-    table3.style.display = "none";
+    collection1.get().then((querySnapshot) => {
+        if (number < 479) {
+            if (!querySnapshot.docs[number].data().respostas.hasOwnProperty("notadiscursiva")) {
+                var name = ""
+                var nivel = ""
+
+                collection2.get().then((querySnapshot2) => {
+                    name = querySnapshot2.docs[number].data().fullName
+                    nivel = querySnapshot2.docs[number].data().level
+                    document.getElementById("caluno").value = name          
+                    document.getElementById("cnivel").value = nivel         
+                }).catch((error) => {
+                    console.error("Erro ao recuperar dados:", error);
+                });
+
+                var respostas = querySnapshot.docs[number].data().respostas
+                document.getElementById("cnotaobjetiva").value = calcularNotaObjetiva(respostas.objetivas, nivel)
+                document.getElementById("cq21").value = respostas.discursivas.essay1
+                document.getElementById("cq22").value = respostas.discursivas.essay2
+                document.getElementById("cq23").value = respostas.discursivas.essay3
+                document.getElementById("cq24").value = respostas.discursivas.essay4
+                document.getElementById("cq25").value = respostas.discursivas.essay5
+            } else {
+                number++
+                seracorrigido(number)
+            }
+        }
+    }).catch((error) => {
+        console.error("Erro ao recuperar dados:", error);
+    });
 }
 
-function corrigindo() {
-    var table1 = document.getElementById("corrigir");
-    var table2 = document.getElementById("corrigindo");
-    var table3 = document.getElementById("corrigido");
+function calcularNotaObjetiva(respostasObjetivas, nivel) {
+    var nota = 0;
+    var gabarito = obterGabarito(nivel); // Função para obter o gabarito para o nível do aluno
 
-    table1.style.display = "none";
-    table2.style.display = "block";
-    table3.style.display = "none";
+    for (var questao in respostasObjetivas) {
+        if (respostasObjetivas.hasOwnProperty(questao)) {
+            var respostaAluno = respostasObjetivas[questao];
+            var respostaCorreta = gabarito[questao];
+
+            if (respostaAluno !== undefined && respostaCorreta !== undefined) {
+                respostaAluno = respostaAluno.toLowerCase(); // Convertendo a resposta para minúsculo
+                respostaCorreta = respostaCorreta.toLowerCase(); // Convertendo a resposta correta para minúsculo
+
+                if (respostaCorreta === 'anulada') {
+                    // Questão anulada, concede ponto automaticamente
+                    nota++;
+                } else if (respostaAluno === respostaCorreta) {
+                    // Se a resposta estiver correta
+                    nota++;
+                }
+            } else if (respostaCorreta === 'anulada') {
+                // Questão anulada e a resposta do aluno não foi fornecida
+                nota++;
+            }
+        }
+    }
+
+    return nota;
 }
 
-function corrigido() {
-    var table1 = document.getElementById("corrigir");
-    var table2 = document.getElementById("corrigindo");
-    var table3 = document.getElementById("corrigido");
+function obterGabarito(nivel) {
+    const gabaritos = {
+        "nível 1": {
+            q1: 'c', q2: 'd', q3: 'e', q4: 'a', q5: 'a',
+            q6: 'b', q7: 'b', q8: 'd', q9: 'c', q10: 'a',
+            q11: 'a', q12: 'b', q13: 'c', q14: 'd', q15: 'b',
+            q16: 'a', q17: 'c', q18: 'c', q19: 'b', q20: 'a'
+        },
+        "nível 2": {
+            q1: 'c', q2: 'c', q3: 'c', q4: 'e', q5: 'd',
+            q6: 'c', q7: 'c', q8: 'd', q9: 'c', q10: 'c',
+            q11: 'c', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
+            q16: 'a', q17: 'b', q18: 'd', q19: 'a', q20: 'c'
+        },
+        "nível 3": {
+            q1: 'b', q2: 'e', q3: 'anulada', q4: 'e', q5: 'c',
+            q6: 'b', q7: 'd', q8: 'c', q9: 'c', q10: 'c',
+            q11: 'a', q12: 'c', q13: 'b', q14: 'b', q15: 'c',
+            q16: 'e', q17: 'd', q18: 'd', q19: 'b', q20: 'c'
+        },
+        "nível 4": {
+            q1: 'b', q2: 'a', q3: 'a', q4: 'anulada', q5: 'a',
+            q6: 'a', q7: 'b', q8: 'a', q9: 'a', q10: 'a',
+            q11: 'a', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
+            q16: 'a', q17: 'a', q18: 'a', q19: 'c', q20: 'b'
+        }
+    };
 
-    table1.style.display = "none";
-    table2.style.display = "none";
-    table3.style.display = "block";
+    return gabaritos[nivel] || {};
 }

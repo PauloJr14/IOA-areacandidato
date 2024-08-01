@@ -330,50 +330,35 @@
     <nav id="nav-corretor" class="olimpiadas">
         <h1>Área dos Corretores</h1>
         <h2>Olimpíada Arandu de História</h2>
-        <nav style="display: flex; justify-content: space-around;">
-            <button onclick="corrigir()">Corrigir</button>
-            <button onclick="corrigindo()">Corrigindo</button>
-            <button onclick="corrigido()">Corrigido</button>
-        </nav>
-        <table id="corrigir">
+
+        <table>
             <thead>
                 <tr>
                     <th>Aluno</th>
-                    <th>Nota Obj.</th>
-                    <th>Corrigir</th>
+                    <th>Nível</th>
+                    <th>Nota Objetiva</th>
                 </tr>
             </thead>
             <tbody>
-
-            </tbody>
-        </table>
-
-        <table id="corrigindo">
-            <thead>
                 <tr>
-                    <th>Aluno</th>
-                    <th>Nota Obj.</th>
-                    <th>Continuar</th>
+                    <td id="caluno"></td>
+                    <td id="cnivel"></td>
+                    <td id="cnotaobjetiva"></td>
                 </tr>
-            </thead>
-            <tbody>
-
             </tbody>
         </table>
-
-        <table id="corrigido">
-            <thead>
-                <tr>
-                    <th>Aluno</th>
-                    <th>Nota Obj.</th>
-                    <th>Nota Dis.</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
+        <h2>Questão 21</h2>
+        <p id="cq21"></p>
+        <h2>Questão 22</h2>
+        <p id="cq22"></p>
+        <h2>Questão 23</h2>
+        <p id="cq23"></p>
+        <h2>Questão 24</h2>
+        <p id="cq24"></p>
+        <h2>Questão 25</h2>
+        <p id="cq25"></p>
         <br>
+        <button onclick="salvarcorrecao()">Voltar</button>
         <button onclick="comeback3()">Voltar</button>
     </nav>
 
