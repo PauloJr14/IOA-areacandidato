@@ -600,8 +600,8 @@ function salvarcorrecao() {
     collection1.get().then((querySnapshot) => {
         var docRef = querySnapshot.docs[numero].ref;
 
-        var notaObjetiva = parseFloat(document.getElementById("cnotaobjetiva").textContent)
-        var notaDiscursiva = parseFloat(document.getElementById("notadiscursiva").value)
+        var notaObjetiva = document.getElementById("cnotaobjetiva").textContent;
+        var notaDiscursiva = document.getElementById("notadiscursiva").value;
 
         docRef.update({
             "respostas.notaobjetiva": notaObjetiva,
