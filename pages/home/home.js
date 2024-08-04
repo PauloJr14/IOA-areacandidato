@@ -527,6 +527,12 @@ async function seracorrigido(number) {
             } else {
                 seracorrigido(number + 1);
             }
+        } else {
+            document.getElementById("cq21").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
+            document.getElementById("cq22").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
+            document.getElementById("cq23").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
+            document.getElementById("cq24").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
+            document.getElementById("cq25").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
         }
     } catch (error) {
         console.error("Erro ao recuperar dados:", error);
@@ -600,8 +606,8 @@ function salvarcorrecao() {
     collection1.get().then((querySnapshot) => {
         var docRef = querySnapshot.docs[numero].ref;
 
-        var notaObjetiva = document.getElementById("cnotaobjetiva").textContent;
-        var notaDiscursiva = document.getElementById("notadiscursiva").value;
+        var notaObjetiva = parseFloat(document.getElementById("cnotaobjetiva").textContent)
+        var notaDiscursiva = parseFloat(document.getElementById("notadiscursiva").value)
 
         docRef.update({
             "respostas.notaobjetiva": notaObjetiva,
