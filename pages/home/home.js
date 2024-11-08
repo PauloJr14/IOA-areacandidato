@@ -119,9 +119,9 @@ function navaluno() {
                     var nh2 = document.getElementById("nh2");
                     var nh3 = document.getElementById("nh3");
 
-                    nh1.textContent = "Nota Objetiva: " + toString(notaobjetiva) + "/20"
-                    nh2.textContent = "Nota Discursiva: " + toString(notadiscursiva) + "/30"
-                    nh3.textContent = "Nota Geral: " + toString(notaobjetiva + notadiscursiva) + "/50"
+                    nh1.textContent = "Nota Objetiva: " + notaobjetiva + "/20"
+                    nh2.textContent = "Nota Discursiva: " + notadiscursiva + "/30"
+                    nh3.textContent = "Nota Geral: " + (notaobjetiva + notadiscursiva) + "/50"
                     // Aqui você pode fazer o que for necessário com as notas
                     // Por exemplo, atualizar a interface do usuário, fazer cálculos, etc.
                 } else {
