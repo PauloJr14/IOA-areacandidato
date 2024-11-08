@@ -50,8 +50,10 @@
 
     <nav id="nav-aluno" class="olimpiadas">
         <h1>Olimpíada de História</h1>
-        <h2>Você já está inscrito</h2>
-        <p>O período para responder a prova já acabou</p>
+        <h2>Notas Individuais</h2>
+        <p id="nh1">Nota Objetiva: .../20</p>
+        <p id="nh2">Nota Discursiva: .../30</p>
+        <p id="nh3">Nota Geral: .../50</p>
         <br>
         <nav style="display: flex; justify-content: space-around;">
             <button id="prova1" onclick="prova1()">Acessar Prova - Nível 1</button>
@@ -318,53 +320,9 @@
             </tbody>
         </table>
         <br>
-        <nav style="display: flex; justify-content: space-around;">
-            <button id="entregues" onclick="entregues()">Inscritos que já entregaram</button>
-            <button onclick="correcao()">Área dos Corretores</button>
-        </nav>
-        <br>
         <button type="button" onclick="comeback()">Voltar</button>
     </nav>
-
     
-    <nav id="nav-corretor" class="olimpiadas">
-        <h1>Área dos Corretores</h1>
-        <h2>Olimpíada Arandu de História</h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Aluno</th>
-                    <th>Nível</th>
-                    <th>Nota Objetiva</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="caluno"></td>
-                    <td id="cnivel"></td>
-                    <td id="cnotaobjetiva"></td>
-                </tr>
-            </tbody>
-        </table>
-        <h2>Questão 21</h2>
-        <p id="cq21"></p>
-        <h2>Questão 22</h2>
-        <p id="cq22"></p>
-        <h2>Questão 23</h2>
-        <p id="cq23"></p>
-        <h2>Questão 24</h2>
-        <p id="cq24"></p>
-        <h2>Questão 25</h2>
-        <p id="cq25"></p>
-        <br>
-        <h2>Nota discursiva</h2>
-        <input type="text" id="notadiscursiva">
-        <br><br>
-        <button onclick="salvarcorrecao()">Salvar</button>
-        <button onclick="comeback3()">Voltar</button>
-    </nav>
-
     <nav id="nav-prof" class="olimpiadas">
         <h1>Área do Professor</h1>
         <p>O período para enviar resposta dos alunos está encerrado.</p>
@@ -495,8 +453,19 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-storage-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     <script src="../../firebase-init.js"></script>
     <script src="../../auth-guard.js"></script>
     <script src="home.js"></script>
 </body>
+
+<div id="privacyModal" class="modal">
+    <div class="modal-content">
+        <h2>Política de Privacidade</h2>
+      <p>Por favor, leia e concorde com nossa política de privacidade para continuar usando o site.</p>
+      <p><a href="https://drive.google.com/file/d/12q3B2pksgyAtwungnHql9D02g5UOl92L/view?usp=sharing" target="_blank" id="privacyLink">Leia a política de privacidade aqui</a></p>
+      <button class="button2" id="acceptBtn" onclick="concordo()">Concordo</button>
+    </div>
+</div>
+
 </html>

@@ -7,7 +7,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
             var collection = firebase.firestore().collection("dados");
+            var collection2 = firebase.firestore().collection("politica-privacidade");
 
+            // Verifica se o usuário concordou com a política
+            collection2.doc(user.uid).get().then((doc) => {
+                if (doc.exists && doc.data().concordou === 1) {
+                    // Se o usuário já concordou, esconde o modal
+                    document.getElementById('privacyModal').style.display = 'none';
+                } else {
+                    // Se o usuário não concordou, exibe o modal
+                    document.getElementById('privacyModal').style.display = 'block';
+                }
+            }).catch((error) => {
+                console.error("Erro ao consultar política de privacidade:", error);
+            });
+
+            // Lógica existente para coletar dados de outros documentos
             collection.doc(user.uid).get().then((doc) => {
                 if (doc.exists) {
                     if (doc.data().hasOwnProperty("inscrito-historia2024")) {
@@ -81,7 +96,48 @@ function navaluno() {
 
     div1.style.display = "none";
     div2.style.display = "block";
+
+    var user = firebase.auth().currentUser; // Obtém o usuário autenticado
+    if (user) {
+        var collection = firebase.firestore().collection("respostas-historia2024"); // Acessa a coleção
+        var userDoc = collection.doc(user.uid); // Documento do usuário
+
+        // Recupera os dados do documento
+        userDoc.get().then((doc) => {
+            if (doc.exists) {
+                // Acessa o campo 'respostas' do documento e lê os valores dentro do mapa
+                var respostas = doc.data().respostas;
+                if (respostas) {
+                    var notadiscursiva = respostas.notadiscursiva;
+                    var notaobjetiva = respostas.notaobjetiva;
+
+                    // Exibe as notas no console (ou use esses valores conforme necessário)
+                    console.log("Nota Discursiva:", notadiscursiva);
+                    console.log("Nota Objetiva:", notaobjetiva);
+
+                    var nh1 = document.getElementById("nh1");
+                    var nh2 = document.getElementById("nh2");
+                    var nh3 = document.getElementById("nh3");
+
+                    nh1.textContent = "Nota Objetiva: " + toString(notaobjetiva) + "/20"
+                    nh2.textContent = "Nota Discursiva: " + toString(notadiscursiva) + "/30"
+                    nh3.textContent = "Nota Geral: " + toString(notaobjetiva + notadiscursiva) + "/50"
+                    // Aqui você pode fazer o que for necessário com as notas
+                    // Por exemplo, atualizar a interface do usuário, fazer cálculos, etc.
+                } else {
+                    console.log("Campo 'respostas' não encontrado no documento.");
+                }
+            } else {
+                console.log("Documento do usuário não encontrado.");
+            }
+        }).catch((error) => {
+            console.error("Erro ao consultar o documento:", error);
+        });
+    } else {
+        console.log("Nenhum usuário autenticado.");
+    }
 }
+
 
 function gabarito() {
     var div1 = document.getElementById("nav-aluno");
@@ -195,7 +251,7 @@ function correcao() {
     div1.style.display = "none";
     div2.style.display = "block";
 
-    seracorrigido(0)
+    carregarDadosDosAlunos()
 }
 
 function comeback3() {
@@ -473,155 +529,25 @@ function uploadFile() {
     }
 }
 
-function entregues() {
-    var collection = firebase.firestore().collection("respostas-historia2024");
+function concordo() {
+    var user = firebase.auth().currentUser; // Obtém o usuário autenticado
+    if (user) {
+        var collection = firebase.firestore().collection("politica-privacidade"); // Acessa ou cria a coleção
+        var userDoc = collection.doc(user.uid); // Documento do usuário
 
-    collection.get().then((querySnapshot) => {
-        var totalEntregues = 0;
-
-        querySnapshot.forEach((doc) => {
-            var data = doc.data();
-            if (data["state"] === true) {
-                totalEntregues++;
-            }
-        });
-
-        document.getElementById("entregues").textContent = "Inscritos individuais que já entregaram: " + totalEntregues + " (" + ((totalEntregues * 100)/776).toFixed(2) + "%)";
-
-    }).catch((error) => {
-        console.error("Erro ao consultar documentos:", error);
-    });
-}
-
-var numero = 0
-
-async function seracorrigido(number) {
-    try {
-        var collection1 = firebase.firestore().collection("respostas-historia2024");
-        var collection2 = firebase.firestore().collection("dados");
-
-        // Obter os documentos
-        var querySnapshot1 = await collection1.get();
-        var querySnapshot2 = await collection2.get();
-
-        if (number < querySnapshot1.size) {
-            var doc1 = querySnapshot1.docs[number];
-            var doc2 = querySnapshot2.docs[number];
-
-            if (!doc1.data().respostas.hasOwnProperty("notadiscursiva")) {
-                var name = doc2.data().fullName;
-                var nivel = doc2.data().level;
-
-                document.getElementById("caluno").textContent = name;
-                document.getElementById("cnivel").textContent = nivel;
-
-                var respostas = doc1.data().respostas;
-                document.getElementById("cnotaobjetiva").textContent = calcularNotaObjetiva(respostas.objetivas, nivel);
-                document.getElementById("cq21").textContent = respostas.dissertativas.essay1;
-                document.getElementById("cq22").textContent = respostas.dissertativas.essay2;
-                document.getElementById("cq23").textContent = respostas.dissertativas.essay3;
-                document.getElementById("cq24").textContent = respostas.dissertativas.essay4;
-                document.getElementById("cq25").textContent = respostas.dissertativas.essay5;
-
-                numero = number
-            } else {
-                seracorrigido(number + 1);
-            }
-        } else {
-            document.getElementById("cq21").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
-            document.getElementById("cq22").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
-            document.getElementById("cq23").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
-            document.getElementById("cq24").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
-            document.getElementById("cq25").textContent = "Todas as repostas de alunos individuais já foram corrigidas"
-        }
-    } catch (error) {
-        console.error("Erro ao recuperar dados:", error);
-    }
-}
-
-function calcularNotaObjetiva(respostasObjetivas, nivel) {
-    var nota = 0;
-    var gabarito = obterGabarito(nivel); // Função para obter o gabarito para o nível do aluno
-
-    for (var questao in respostasObjetivas) {
-        if (respostasObjetivas.hasOwnProperty(questao)) {
-            var respostaAluno = respostasObjetivas[questao];
-            var respostaCorreta = gabarito[questao];
-
-            if (respostaAluno !== undefined && respostaCorreta !== undefined) {
-                respostaAluno = respostaAluno.toLowerCase(); // Convertendo a resposta para minúsculo
-                respostaCorreta = respostaCorreta.toLowerCase(); // Convertendo a resposta correta para minúsculo
-
-                if (respostaCorreta === 'anulada') {
-                    // Questão anulada, concede ponto automaticamente
-                    nota++;
-                } else if (respostaAluno === respostaCorreta) {
-                    // Se a resposta estiver correta
-                    nota++;
-                }
-            } else if (respostaCorreta === 'anulada') {
-                // Questão anulada e a resposta do aluno não foi fornecida
-                nota++;
-            }
-        }
-    }
-
-    return nota;
-}
-
-function obterGabarito(nivel) {
-    const gabaritos = {
-        "nível 1": {
-            q1: 'c', q2: 'd', q3: 'e', q4: 'a', q5: 'a',
-            q6: 'b', q7: 'b', q8: 'd', q9: 'c', q10: 'a',
-            q11: 'a', q12: 'b', q13: 'c', q14: 'd', q15: 'b',
-            q16: 'a', q17: 'c', q18: 'c', q19: 'b', q20: 'a'
-        },
-        "nível 2": {
-            q1: 'c', q2: 'c', q3: 'c', q4: 'e', q5: 'd',
-            q6: 'c', q7: 'c', q8: 'd', q9: 'c', q10: 'c',
-            q11: 'c', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
-            q16: 'a', q17: 'b', q18: 'd', q19: 'a', q20: 'c'
-        },
-        "nível 3": {
-            q1: 'b', q2: 'e', q3: 'anulada', q4: 'e', q5: 'c',
-            q6: 'b', q7: 'd', q8: 'c', q9: 'c', q10: 'c',
-            q11: 'a', q12: 'c', q13: 'b', q14: 'b', q15: 'c',
-            q16: 'e', q17: 'd', q18: 'd', q19: 'b', q20: 'c'
-        },
-        "nível 4": {
-            q1: 'b', q2: 'a', q3: 'a', q4: 'anulada', q5: 'a',
-            q6: 'a', q7: 'b', q8: 'a', q9: 'a', q10: 'a',
-            q11: 'a', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
-            q16: 'a', q17: 'a', q18: 'a', q19: 'c', q20: 'b'
-        }
-    };
-
-    return gabaritos[nivel] || {};
-}
-
-function salvarcorrecao() {
-    var collection1 = firebase.firestore().collection("respostas-historia2024");
-
-    collection1.get().then((querySnapshot) => {
-        var docRef = querySnapshot.docs[numero].ref;
-
-        var notaObjetiva = parseFloat(document.getElementById("cnotaobjetiva").textContent)
-        var notaDiscursiva = parseFloat(document.getElementById("notadiscursiva").value)
-
-        docRef.update({
-            "respostas.notaobjetiva": notaObjetiva,
-            "respostas.notadiscursiva": notaDiscursiva
-        })
+        // Salva o campo 'concordou' igual a 1 (ou o valor desejado)
+        userDoc.set({
+            concordou: 1
+        }, { merge: true }) // { merge: true } garante que dados anteriores não sejam sobrescritos
         .then(() => {
-            console.log("Document successfully updated!");
+            console.log("Usuário concordou com a política de privacidade.");
+            // Aqui você pode fechar o modal ou redirecionar o usuário
+            document.getElementById('privacyModal').style.display = 'none'; // Exemplo de fechamento do modal
         })
         .catch((error) => {
-            console.error("Error updating document: ", error);
+            console.error("Erro ao salvar a concordância: ", error);
         });
-    }).catch((error) => {
-        console.error("Erro ao recuperar dados:", error);
-    });
-
-    seracorrigido(numero + 1)
+    } else {
+        console.log("Nenhum usuário autenticado.");
+    }
 }
